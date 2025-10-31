@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - Cesar Alejandro Encina</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .photo-container {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            border: 5px solid white;
+            overflow: hidden;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: #667eea;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95em;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .skill-item {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .skill-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .skill-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .experience-item, .education-item {
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 4px solid #764ba2;
+            transition: transform 0.3s;
+        }
+
+        .experience-item:hover, .education-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(118, 75, 162, 0.2);
+        }
+
+        .item-title {
+            font-size: 1.2em;
+            color: #764ba2;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .item-subtitle {
+            color: #666;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+
+        .item-description {
+            color: #444;
+            line-height: 1.6;
+        }
+
+        .buttons-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .btn {
+            padding: 15px 25px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+        }
+
+        .btn-whatsapp:hover {
+            background: #22c55e;
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+        }
+
+        .btn-download {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-download:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .about-text {
+            line-height: 1.8;
+            color: #444;
+            text-align: justify;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                border-radius: 0;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .content {
+                padding: 30px 20px;
+            }
+
+            .buttons-container {
+                right: 20px;
+                bottom: 20px;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .buttons-container {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="cv-content">
+        <div class="header">
+            <div class="photo-container">
+                <i class="fas fa-user"></i>
+                <!-- Para agregar tu foto, reemplaza el ícono con: <img src="URL_DE_TU_FOTO" alt="Cesar Encina"> -->
+            </div>
+            <h1>Cesar Alejandro Encina</h1>
+            <p class="subtitle">Profesional Comercial | Posadas, Misiones</p>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Posadas, Misiones, Argentina</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>tu.email@ejemplo.com</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>+54 9 XXX XXX-XXXX</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-user-circle"></i>
+                    Perfil Profesional
+                </h2>
+                <p class="about-text">
+                    Profesional orientado al área comercial con sólidas competencias en gestión de relaciones comerciales y desarrollo de negocios. Destaco por mi capacidad de innovación en estrategias de venta, toma de decisiones ágil y efectiva, resiliencia ante desafíos del mercado, habilidades interpersonales avanzadas y gran versatilidad para operar en entornos dinámicos. Comprometido con la excelencia en resultados y el crecimiento sostenible de la organización.
+                </p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-star"></i>
+                    Competencias Profesionales
+                </h2>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="skill-name">Pensamiento Estratégico</div>
+                        <p style="font-size: 0.9em; color: #666;">Desarrollo de soluciones innovadoras para desafíos comerciales</p>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">Orientación a Resultados</div>
+                        <p style="font-size: 0.9em; color: #666;">Ejecución eficiente con enfoque en objetivos concretos</p>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">Liderazgo Resiliente</div>
+                        <p style="font-size: 0.9em; color: #666;">Manejo efectivo de situaciones de alta presión</p>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">Gestión de Relaciones Comerciales</div>
+                        <p style="font-size: 0.9em; color: #666;">Construcción y mantenimiento de vínculos estratégicos</p>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">Flexibilidad Organizacional</div>
+                        <p style="font-size: 0.9em; color: #666;">Adaptación rápida a cambios del entorno comercial</p>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">Negociación Efectiva</div>
+                        <p style="font-size: 0.9em; color: #666;">Cierre de acuerdos beneficiosos para todas las partes</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-briefcase"></i>
+                    Experiencia Profesional
+                </h2>
+                <div class="experience-item">
+                    <div class="item-title">Posición en Área Comercial</div>
+                    <div class="item-subtitle">Empresa | Período</div>
+                    <p class="item-description">
+                        • Gestión integral de cartera de clientes y desarrollo de nuevas oportunidades comerciales<br>
+                        • Implementación de estrategias de ventas que incrementaron la facturación<br>
+                        • Análisis de mercado y propuesta de mejoras en procesos comerciales<br>
+                        • Coordinación con equipos multidisciplinarios para alcanzar objetivos
+                    </p>
+                </div>
+                <!-- Agrega más experiencias aquí -->
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-graduation-cap"></i>
+                    Formación Académica
+                </h2>
+                <div class="education-item">
+                    <div class="item-title">Título o Certificación</div>
+                    <div class="item-subtitle">Institución | Año</div>
+                    <p class="item-description">
+                        Descripción de la formación académica relevante
+                    </p>
+                </div>
+                <!-- Agrega más formación aquí -->
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-certificate"></i>
+                    Certificaciones y Cursos
+                </h2>
+                <div class="education-item">
+                    <div class="item-title">Curso/Certificación Relevante</div>
+                    <div class="item-subtitle">Institución | Año</div>
+                </div>
+                <!-- Agrega más certificaciones aquí -->
+            </div>
+        </div>
+    </div>
+
+    <div class="buttons-container">
+        <button class="btn btn-whatsapp" onclick="openWhatsApp()">
+            <i class="fab fa-whatsapp"></i>
+            Contactar por WhatsApp
+        </button>
+        <button class="btn btn-download" onclick="downloadPDF()">
+            <i class="fas fa-download"></i>
+            Descargar CV en PDF
+        </button>
+    </div>
+
+    <script>
+        function openWhatsApp() {
+            // Reemplaza este número con tu número de WhatsApp (código país + número sin espacios ni guiones)
+            const phoneNumber = '5493764XXXXXX'; // Ejemplo: 549376412345
+            const message = encodeURIComponent('Hola Cesar, vi tu CV y me gustaría contactarte.');
+            window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+        }
+
+        function downloadPDF() {
+            const btn = document.querySelector('.buttons-container');
+            btn.style.display = 'none';
+            
+            const opt = {
+                margin: 0,
+                filename: 'CV_Cesar_Alejandro_Encina.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            html2pdf().set(opt).from(document.getElementById('cv-content')).save().then(() => {
+                btn.style.display = 'flex';
+            });
+        }
+
+        // Animación suave al cargar
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach((section, index) => {
+                section.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+    </script>
+</body>
+</html>
